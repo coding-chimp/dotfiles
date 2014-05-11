@@ -1,0 +1,9 @@
+*.sp[nop]
+.bundle
+.env
+db/*.sqlite3
+loc/*.log
+rerun.txt
+tmp/**/*
+!tmp/cache/.keep
+zeus.json

@@ -1,0 +1,28 @@
+if [ `uname` = 'Darwin' ]; then
+  alias ls='ls -G'
+else
+  alias ls='ls --color=auto'
+fi
+
+# Unix
+alias tlf='tail -f'
+alias l='ls'
+alias ll='ls -lh'
+alias lh='ls -Alh'
+alias e='$EDITOR'
+
+# git
+alias gci='git pull --rebase && rake && git push'
+alias gco='git checkout'
+alias gd='git diff -M'
+alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"'
+alias gl='gl --graph'
+alias gla='gl --all'
+alias gst='git stash save'
+alias gstp='git stash pop'
+
+# Bundler
+alias b='bundle'
+
+# Rails
+alias z='zeus'
