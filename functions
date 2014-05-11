@@ -2,6 +2,23 @@ cd() {
   builtin cd "$@" && ls
 }
 
+p() {
+  cd "$HOME/projects/$1"
+}
+_complep() {
+  reply=($(ls $HOME/projects))
+}
+compctl -K _complep p
+
+
+c() {
+  cd "$HOME/code/$1"
+}
+_complec() {
+  reply=($(ls $HOME/code))
+}
+compctl -K _complec c
+
 function geticon() {
   APP=`echo $1|sed -e 's/\.app$//'`
   APPDIR=''

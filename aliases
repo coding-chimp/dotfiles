@@ -5,6 +5,8 @@ else
 fi
 
 # Unix
+alias ..='cd ..'
+alias ...='cd ../..'
 alias tlf='tail -f'
 alias l='ls'
 alias ll='ls -lh'
