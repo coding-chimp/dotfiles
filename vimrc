@@ -148,3 +148,12 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 let g:ragtag_global_maps = 1
+
+function! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfunction
+
+autocmd FileType c,css,cpp,java,js,php,python,ruby autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
