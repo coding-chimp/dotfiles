@@ -3,8 +3,10 @@
 # Run specs with great speed and daring-do.
 #
 
-if [ -S .zeus.sock ]; then
-  zeus rspec $1
+if [ -e bin/rspec ];then
+  spring rspec $1
+elif [ -S .zeus.sock ]; then
+ zeus rspec $1
 else
   bundle exec rspec $1
 fi
