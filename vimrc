@@ -5,6 +5,8 @@ set nocompatible
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
+runtime macros/matchit.vim
+
 " Leader
 let mapleader = " "
 
@@ -85,6 +87,7 @@ highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
 " Numbers
+set relativenumber
 set number
 set numberwidth=5
 
