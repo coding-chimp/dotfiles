@@ -64,3 +64,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 . ~/.zsh/aliases
 . ~/.zsh/functions
+
+# added by travis gem
+[ -f /Users/codechimp/.travis/travis.sh ] && source /Users/codechimp/.travis/travis.sh

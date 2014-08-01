@@ -160,3 +160,5 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 autocmd FileType c,css,cpp,java,js,php,python,ruby autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
