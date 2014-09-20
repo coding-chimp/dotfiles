@@ -32,6 +32,7 @@ set scrolloff=3                 " Show 3 lines of context around the cursor
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
+set term=builtin_ansi
 syntax enable                   " turn on syntax highlighting
 filetype plugin indent on       " turn on file type detection
 
@@ -82,9 +83,14 @@ if executable('ag')
 endif
 
 " Color scheme
-colorscheme topfunky-light
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
+
+" Toggle background
+call togglebg#map("<F5>")
 
 " Numbers
 set relativenumber
@@ -121,11 +127,13 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " Run current ruby file
-command RubyRun execute "!ruby %"
-map <Leader>r :RubyRun<CR>
+command RunRuby execute "silent !~/.vim/bundle/vim-rspec/bin/os_x_iterm 'ruby %'"
+map <Leader>r :RunRuby<CR>
 
 " vim-rspec mappings
-let g:rspec_command = "!t {spec}"
+" let g:rspec_command = "!t {spec}"
+let g:rspec_runner = "os_x_iterm"
+let g:rspec_command = "silent !~/.vim/bundle/vim-rspec/bin/" . g:rspec_runner . " 'bundle exec rspec {spec}'"
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>

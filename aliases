@@ -11,7 +11,7 @@ alias tlf='tail -f'
 alias l='ls'
 alias ll='ls -lh'
 alias lh='ls -Alh'
-alias e='$EDITOR'
+alias e='open -a MacVim'
 
 # git
 alias gci='git pull --rebase && rake && git push'
