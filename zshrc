@@ -51,6 +51,9 @@ fi
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 
+# java
+export JAVA_HOME=$(/usr/libexec/java_home)
+
 unsetopt autocd
 
 # Set a really fast key repeat.
