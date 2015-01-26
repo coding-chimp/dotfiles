@@ -97,7 +97,7 @@ set relativenumber
 set number
 set numberwidth=5
 
-" Tab comletion
+" Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
 set wildmode=list:longest,list:full
