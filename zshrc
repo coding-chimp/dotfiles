@@ -70,3 +70,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # added by travis gem
 [ -f /Users/codechimp/.travis/travis.sh ] && source /Users/codechimp/.travis/travis.sh
+
+# zsh-bd
+. $HOME/bin/bd/bd.zsh
