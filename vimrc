@@ -131,9 +131,7 @@ command RunRuby execute "silent !~/.vim/bundle/vim-rspec/bin/os_x_iterm 'ruby %'
 map <Leader>r :RunRuby<CR>
 
 " vim-rspec mappings
-" let g:rspec_command = "!t {spec}"
 let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "bundle exec rspec {spec}"
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
