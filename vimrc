@@ -92,6 +92,8 @@ highlight Folded  guibg=#0A0A0A guifg=#9090D0
 " Toggle background
 call togglebg#map("<F5>")
 
+let g:airline_powerline_fonts = 1
+
 " Numbers
 set relativenumber
 set number
