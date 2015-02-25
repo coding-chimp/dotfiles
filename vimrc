@@ -169,6 +169,12 @@ function! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 
-autocmd FileType c,css,cpp,java,js,php,python,ruby autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType
+  \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss
+  \ autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+autocmd BufEnter
+  \ *.c,*.coffee,*.cpp,*.css,*.html,*.java,*.js,*.pas,*.php,*.py,*.python,
+  \*.rake,*.ruby,*.sass,*.scss:Rooter
