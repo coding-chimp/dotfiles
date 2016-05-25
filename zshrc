@@ -53,6 +53,8 @@ eval "$(rbenv init - zsh)"
 
 # java
 export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH=${PATH}:/Users/codechimp/Library/Android/sdk/tools
+export PATH=${JAVA_HOME}/bin:$PATH
 
 unsetopt autocd
 
@@ -74,3 +76,13 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # zsh-bd
 . $HOME/bin/bd/bd.zsh
+
+# elixir
+export PATH="$PATH:/usr/local/opt/elixir/bin"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
+export NVM_DIR="/Users/codechimp/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -1,74 +1,225 @@
-" Use Vim settings, rather then Vi settings. This setting must be as early as
-" possible, as it has side effects.
-set nocompatible
+" ========================================================================
+" Vundle stuff
+" ========================================================================
+set nocompatible " Required by vundle
+filetype off     " Required by vundle
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-runtime macros/matchit.vim
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-" Leader
+" General
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'airblade/vim-rooter'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'danro/rename.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'kana/vim-textobj-user'
+Plugin 'mattn/emmet-vim'
+Plugin 'rking/ag.vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" Ruby
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
+
+" JS
+Plugin 'burnettk/vim-angular'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'pangloss/vim-javascript'
+
+" Colors
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'chriskempson/base16-vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" ========================================================================
+" Colors
+" ========================================================================
+
+let base16colorspace=256
+set background=dark
+colorscheme base16-default
+
+syntax on
+
+highlight rubyDefine cterm=bold
+
+" ========================================================================
+" Mapping
+" ========================================================================
+
 let mapleader = " "
 
-set backspace=indent,eol,start  " intuitive backspacing
-set nobackup
-set nowritebackup
-set noswapfile
-set history=50
-set ruler                       " show cursor position all the time
-set showcmd                     " display incomplete commands
-set showmode                    " display the mode you're in
-set incsearch                   " do incremental searching
-set wildmenu                    " enhanced command line completion
-set ignorecase                  " case-insensitive searching
-set smartcase                   " but case-sensitive if expression contains a capital letter
-set laststatus=2                " always display the status line
-set autowrite                   " automatically :write before running commands
-set hidden                      " handle multiple buffers better
-set title                       " Set the terminal's title
-set visualbell                  " No beeping
-set scrolloff=3                 " Show 3 lines of context around the cursor
+nnoremap <leader><leader> <c-^> " Switch between the last two files
+map <Leader>ac :vs app/controllers/application_controller.rb<cr>
+map <Leader>b :!bundle install<cr>
+map <Leader>fa :vs spec/factories.rb<CR>i
+map <Leader>i mmgg=G`m
+map <Leader>l oconsole.log 'debugging'<esc>:w<cr>
+map <Leader>m :Rmodel
+map <Leader>r :RunRuby<CR>
+map <Leader>ra :%s/
+map <Leader>s :w<cr>:call RunNearestSpec()<CR>
+map <Leader>sc :sp db/schema.rb<cr>
+map <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
+map <Leader>u :Runittest<cr>
+map <Leader>vc :Vcontroller<cr>
+map <Leader>vf :Vfunctional<cr>
+map <Leader>vm :Vmodel<cr>
+map <Leader>vu :Vunittest<CR>
+map <Leader>vv :Vview<cr>
 
-" Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
+" Let's be reasonable, shall we?
+nmap k gk
+nmap j gj
 
-set term=builtin_ansi
-syntax enable                   " turn on syntax highlighting
-filetype plugin indent on       " turn on file type detection
+" Get off my Lawn
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
 
-augroup vimrcEx
-  autocmd!
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+" Toggle background
+call togglebg#map("<F5>")
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it for commit messages, when the position is invalid, or when
-  " inside an event handler (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+" ========================================================================
+" Settings
+" ========================================================================
 
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-
-  " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
-
-  " Automatically wrap at 80 characters for Markdown
-  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
-augroup END
-
-" Softabs, 2 spaces
+set backspace=indent,eol,start    " intuitive backspacing
+set history=500                   " keep 500 lines of command line history
+set ruler                         " show the cursor position all the time
+set showcmd                       " display incomplete commands
+set autoindent                    " always set autoindenting on
+set showmatch
+set nowrap
+set backupdir=~/.tmp
+set directory=~/.tmp              " don't clutter my dirs up with swp and tmp files
+set autoread
+set hidden
+set wmh=0
+set viminfo+=!
+set guioptions-=T
+set guifont=Inconsolata\ for\ Powerline:h15
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
 set tabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
+set smarttab
+set noincsearch
+set ignorecase                    " case-insensitive searching
+set smartcase                     " but case-sensitive if expression contains a capital letter
+set laststatus=2                  " always display the status line
+set gdefault                      " assume the /g flag on :s substitutions to replace all matches in a line
+set lazyredraw                    " Don't redraw screen when running macros.
+set relativenumber
+set number
+set numberwidth=5
+set scrolloff=3                   " Show 3 lines of context around the cursor
+set shiftround                    " When at 3 spaces and I hit >>, go to 4, not 5.
+set nofoldenable                  " Say no to code folding...
+set wildmenu                      " enhanced command line completion
+set noswapfile
+set mouse=a                       " Scroll vim not the terminal
+set list listchars=tab:»·,trail:· " Display extra whitespace
+set wildignore+=tmp/**            " Ignore stuff that can't be opened
+set splitbelow                    " Open horizontal split below
+set splitright                    " Open vertical split to the right
+set shortmess=at
+set cmdheight=2
 
-" Display extra whitespace
-set list listchars=tab:»·,trail:·
+" Useful status information at bottom of screen
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
+
+" ========================================================================
+" Ruby stuff
+" ========================================================================
+augroup myfiletypes
+  " Clear old autocmds in group
+  autocmd!
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal path+=lib
+  autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+  " Make ?s part of words
+  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+  " Appraisal files are ruby too
+  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+
+augroup END
+
+" Enable built-in matchit plugin
+runtime macros/matchit.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it for commit messages, when the position is invalid, or when
+" inside an event handler (happens when dropping a file on gvim).
+autocmd BufReadPost *
+  \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
+
+" By default, vim thinks .md is Modula-2.
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+" Enable spellchecking for Markdown
+autocmd FileType markdown setlocal spell
+
+" Automatically wrap at 78 characters for Markdown and text files
+autocmd FileType text setlocal textwidth=78
+autocmd BufRead,BufNewFile *.md setlocal textwidth=78
+
+" Disable automatic comment insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Strip trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfunction
+
+autocmd FileType
+  \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss
+  \ autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" Font
+let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='solarized'
+let g:solarized_base16 = 1
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -81,23 +232,6 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-
-" Color scheme
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
-
-" Toggle background
-call togglebg#map("<F5>")
-
-let g:airline_powerline_fonts = 1
-
-" Numbers
-set relativenumber
-set number
-set numberwidth=5
 
 " Tab completion
 " will insert tab at beginning of line,
@@ -116,65 +250,30 @@ inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
-
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
-
-" Get off my Lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
 " Run current ruby file
-command RunRuby execute "silent !~/.vim/bundle/vim-rspec/bin/os_x_iterm 'ruby %'"
-map <Leader>r :RunRuby<CR>
+command RunRuby execute "Dispatch ruby %"
 
 " vim-rspec mappings
-let g:rspec_runner = "os_x_iterm"
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
-autocmd FileType markdown let b:dispatch = 'octodown %'
+let g:rspec_command = "Dispatch bin/rspec {spec}"
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 let g:ragtag_global_maps = 1
 
-function! <SID>StripTrailingWhitespaces()
-  let l = line(".")
-  let c = col(".")
-  %s/\s\+$//e
-  call cursor(l, c)
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" Adjusts quickfix window height
+au FileType qf call AdjustWindowHeight(3, 20)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-
-autocmd FileType
-  \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss
-  \ autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-autocmd BufEnter
-  \ *.c,*.coffee,*.cpp,*.css,*.html,*.java,*.js,*.pas,*.php,*.py,*.python,
-  \*.rake,*.ruby,*.sass,*.scss:Rooter
