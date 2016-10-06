@@ -19,7 +19,7 @@ Plugin 'danro/rename.vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'kana/vim-textobj-user'
 Plugin 'mattn/emmet-vim'
-Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
@@ -221,15 +221,19 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 let g:solarized_base16 = 1
 
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+" Use Ripgrep https://github.com/BurntSushi/ripgrep/
+if executable('rg')
+  " Use Rg over Grep
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " Use rg in CtrlP for listing files
+  let g:ctrlp_user_command = 'rg %s --files --color=never'
 
-  " ag is fast enough that CtrlP doesn't need to cache
+  " Use rg in Ack
+  let g:ackprg = 'rg -S --no-heading --vimgrep'
+
+  " rg is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
 
