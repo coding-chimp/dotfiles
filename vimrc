@@ -43,6 +43,9 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 
+" TS
+Plugin 'leafgarland/typescript-vim'
+
 " Colors
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
