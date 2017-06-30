@@ -58,11 +58,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 unsetopt autocd
 
-# Set a really fast key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 0
-
-# Disable press-and-hold for keys in favor of key repeat.
-defaults write -g ApplePressAndHoldEnabled -bool false
+# postgres
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # heroku
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -76,9 +73,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # zsh-bd
 . $HOME/bin/bd/bd.zsh
-
-# elixir
-export PATH="$PATH:/usr/local/opt/elixir/bin"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
