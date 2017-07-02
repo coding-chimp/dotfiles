@@ -48,8 +48,7 @@ call minpac#add('leafgarland/typescript-vim')
 call minpac#add('elixir-lang/vim-elixir')
 
 " Colors
-call minpac#add('altercation/vim-colors-solarized')
-call minpac#add('chriskempson/base16-vim')
+call minpac#add('lifepillar/vim-solarized8')
 
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
@@ -58,8 +57,7 @@ command! PackClean call minpac#clean()
 " Colors
 " ========================================================================
 
-let base16colorspace=256
-colorscheme base16-default-dark
+colorscheme solarized8_dark
 
 syntax on
 
@@ -123,10 +121,9 @@ set autoread
 set hidden
 set wmh=0
 set viminfo+=!
-set guioptions-=T
 set guifont=Inconsolata\ for\ Powerline:h15
 set encoding=utf-8
-set t_Co=256
+set termguicolors
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set tabstop=2
@@ -155,6 +152,10 @@ set splitbelow                    " Open horizontal split below
 set splitright                    " Open vertical split to the right
 set shortmess=at
 set cmdheight=2
+
+if has('nvim')
+  set inccommand=nosplit
+endif
 
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
@@ -279,3 +280,9 @@ au FileType qf call AdjustWindowHeight(3, 20)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+
+nnoremap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
+  \ ? substitute(g:colors_name, 'dark', 'light', '')
+  \ : substitute(g:colors_name, 'light', 'dark', '')
+  \ )<cr>
+
