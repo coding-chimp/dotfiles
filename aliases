@@ -11,7 +11,7 @@ alias tlf='tail -f'
 alias l='ls'
 alias ll='ls -lh'
 alias lh='ls -Alh'
-alias e='vim'
+alias e='nvim'
 
 # git
 alias gci='git pull --rebase && rake && git push'
@@ -25,6 +25,3 @@ alias gstp='git stash pop'
 
 # Bundler
 alias b='bundle'
-
-# Rails
-alias z='zeus'
