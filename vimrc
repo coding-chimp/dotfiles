@@ -1,66 +1,61 @@
 " ========================================================================
-" Vundle stuff
+" minpac stuff
 " ========================================================================
-set nocompatible " Required by vundle
-filetype off     " Required by vundle
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Initialize minpac
+packadd minpac
+call minpac#init()
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" let minpac manage Minpac
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " General
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'airblade/vim-rooter'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'danro/rename.vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'kana/vim-textobj-user'
-Plugin 'mattn/emmet-vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+call minpac#add('AndrewRadev/splitjoin.vim')
+call minpac#add('airblade/vim-rooter')
+call minpac#add('ctrlpvim/ctrlp.vim')
+call minpac#add('danro/rename.vim')
+call minpac#add('kana/vim-textobj-user')
+call minpac#add('mattn/emmet-vim')
+call minpac#add('mileszs/ack.vim')
+call minpac#add('tomtom/tcomment_vim')
+call minpac#add('tpope/vim-dispatch')
+call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-surround')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
 
 " Ruby
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-rails'
-Plugin 'vim-ruby/vim-ruby'
+call minpac#add('nelstrom/vim-textobj-rubyblock')
+call minpac#add('thoughtbot/vim-rspec')
+call minpac#add('tpope/vim-bundler')
+call minpac#add('tpope/vim-rails')
+call minpac#add('vim-ruby/vim-ruby')
 
 " JS
-Plugin 'burnettk/vim-angular'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'pangloss/vim-javascript'
+call minpac#add('burnettk/vim-angular')
+call minpac#add('kchmck/vim-coffee-script')
+call minpac#add('mustache/vim-mustache-handlebars')
+call minpac#add('othree/javascript-libraries-syntax.vim')
+call minpac#add('pangloss/vim-javascript')
 
 " TS
-Plugin 'leafgarland/typescript-vim'
+call minpac#add('leafgarland/typescript-vim')
+
+" Elixir
+call minpac#add('elixir-lang/vim-elixir')
 
 " Colors
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'chriskempson/base16-vim'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('chriskempson/base16-vim')
 
 " ========================================================================
 " Colors
 " ========================================================================
 
 let base16colorspace=256
-set background=dark
-colorscheme base16-default
+colorscheme base16-default-dark
 
 syntax on
 
@@ -106,9 +101,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
-
-" Toggle background
-call togglebg#map("<F5>")
 
 " ========================================================================
 " Settings
@@ -258,7 +250,7 @@ inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
 " Run current ruby file
-command RunRuby execute "Dispatch ruby %"
+command! RunRuby execute "Dispatch ruby %"
 
 " vim-rspec mappings
 let g:rspec_command = "Dispatch bin/rspec {spec}"
