@@ -50,6 +50,9 @@ call minpac#add('elixir-lang/vim-elixir')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('chriskempson/base16-vim')
 
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
 " ========================================================================
 " Colors
 " ========================================================================
