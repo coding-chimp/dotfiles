@@ -14,6 +14,7 @@ call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('airblade/vim-rooter')
 call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('danro/rename.vim')
+call minpac#add('janko-m/vim-test')
 call minpac#add('kana/vim-textobj-user')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('mattn/emmet-vim')
@@ -29,7 +30,6 @@ call minpac#add('vim-airline/vim-airline-themes')
 
 " Ruby
 call minpac#add('nelstrom/vim-textobj-rubyblock')
-call minpac#add('thoughtbot/vim-rspec')
 call minpac#add('tpope/vim-bundler')
 call minpac#add('tpope/vim-rails')
 call minpac#add('vim-ruby/vim-ruby')
@@ -74,19 +74,20 @@ map <Leader>ac :vs app/controllers/application_controller.rb<cr>
 map <Leader>b :!bundle install<cr>
 map <Leader>fa :vs spec/factories.rb<CR>i
 map <Leader>i mmgg=G`m
-map <Leader>l oconsole.log 'debugging'<esc>:w<cr>
 map <Leader>m :Rmodel
 map <Leader>r :RunRuby<CR>
 map <Leader>ra :%s/
-map <Leader>s :w<cr>:call RunNearestSpec()<CR>
 map <Leader>sc :sp db/schema.rb<cr>
-map <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
-map <Leader>u :Runittest<cr>
 map <Leader>vc :Vcontroller<cr>
 map <Leader>vf :Vfunctional<cr>
 map <Leader>vm :Vmodel<cr>
 map <Leader>vu :Vunittest<CR>
 map <Leader>vv :Vview<cr>
+
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 " Let's be reasonable, shall we?
 nmap k gk
@@ -256,8 +257,12 @@ let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " Run current ruby file
 command! RunRuby execute "Dispatch ruby %"
 
-" vim-rspec mappings
-let g:rspec_command = "Dispatch bin/rspec {spec}"
+" vim-test mappings
+if has('nvim')
+  let test#strategy = 'neovim'
+else
+  let test#strategy = 'dispatch'
+endif
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
