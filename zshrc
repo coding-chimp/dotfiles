@@ -34,8 +34,8 @@ bindkey jj vi-cmd-mode
 bindkey "\e\e[C"  forward-word
 bindkey "\e\e[D"  backward-word
 
-# use vim as the visual editor
-export VISUAL=vim
+# use nvim as the visual editor
+export VISUAL=nvim
 export EDITOR=$VISUAL
 
 if [ $(uname -s) = 'Darwin' ]; then
