@@ -168,7 +168,7 @@ augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
   " autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal ai shiftwidth=2 tabstop=2 et
   autocmd FileType ruby,eruby,yaml setlocal path+=lib
   autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
   " Make ?s part of words
@@ -178,9 +178,13 @@ augroup myfiletypes
 
 augroup END
 
-" Enable built-in matchit plugin
-runtime macros/matchit.vim
+if !has('nvim')
+  " Enable built-in matchit plugin
+  runtime macros/matchit.vim
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+filetype plugin indent on
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it for commit messages, when the position is invalid, or when
