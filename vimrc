@@ -11,22 +11,23 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " General
 call minpac#add('AndrewRadev/splitjoin.vim')
+call minpac#add('airblade/vim-gitgutter')
 call minpac#add('airblade/vim-rooter')
 call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('danro/rename.vim')
+call minpac#add('itchyny/lightline.vim')
 call minpac#add('janko-m/vim-test')
 call minpac#add('kana/vim-textobj-user')
 call minpac#add('machakann/vim-highlightedyank')
-call minpac#add('mattn/emmet-vim')
 call minpac#add('mileszs/ack.vim')
 call minpac#add('tomtom/tcomment_vim')
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-eunuch')
 call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-sleuth')
 call minpac#add('tpope/vim-surround')
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
 
 " Ruby
 call minpac#add('nelstrom/vim-textobj-rubyblock')
@@ -36,13 +37,10 @@ call minpac#add('vim-ruby/vim-ruby')
 
 " JS
 call minpac#add('burnettk/vim-angular')
-call minpac#add('kchmck/vim-coffee-script')
-call minpac#add('mustache/vim-mustache-handlebars')
+call minpac#add('elzr/vim-json')
+call minpac#add('leafgarland/typescript-vim')
 call minpac#add('othree/javascript-libraries-syntax.vim')
 call minpac#add('pangloss/vim-javascript')
-
-" TS
-call minpac#add('leafgarland/typescript-vim')
 
 " Elixir
 call minpac#add('elixir-lang/vim-elixir')
@@ -50,18 +48,49 @@ call minpac#add('elixir-lang/vim-elixir')
 " Colors
 call minpac#add('lifepillar/vim-solarized8')
 
-command! PackUpdate call minpac#update()
-command! PackClean call minpac#clean()
+command! PackUpdate packadd minpac | source $MYVIMRC | redraw | call minpac#update()
+command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 
 " ========================================================================
 " Colors
 " ========================================================================
 
-colorscheme solarized8_dark
+set termguicolors
+silent! colorscheme solarized8_dark
 
 syntax on
 
 highlight rubyDefine cterm=bold
+
+" ========================================================================
+" Statusline
+" ========================================================================
+
+function! GitInfo()
+  let git = fugitive#head()
+  if git != ''
+    return ' '.fugitive#head()
+  else
+    return ''
+endfunction
+
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \ 'left': [ [ 'mode', 'paste' ],
+      \           [ 'gitbranch' ],
+      \           [ 'readonly', 'filename', 'modified' ] ],
+      \ 'right': [ [ 'lineinfo' ],
+      \            [ 'percent' ],
+      \            [ 'filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'lineinfo': '%l:%L  %c'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'GitInfo'
+      \ },
+      \ }
 
 " ========================================================================
 " Mapping
@@ -122,16 +151,9 @@ set autoread
 set hidden
 set wmh=0
 set viminfo+=!
-set guifont=Inconsolata\ for\ Powerline:h15
 set encoding=utf-8
-set termguicolors
 set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
-set smarttab
 set noincsearch
 set ignorecase                    " case-insensitive searching
 set smartcase                     " but case-sensitive if expression contains a capital letter
@@ -140,26 +162,28 @@ set gdefault                      " assume the /g flag on :s substitutions to re
 set lazyredraw                    " Don't redraw screen when running macros.
 set relativenumber
 set number
-set numberwidth=5
+set numberwidth=4
 set scrolloff=3                   " Show 3 lines of context around the cursor
-set shiftround                    " When at 3 spaces and I hit >>, go to 4, not 5.
 set nofoldenable                  " Say no to code folding...
 set wildmenu                      " enhanced command line completion
 set noswapfile
-set mouse=a                       " Scroll vim not the terminal
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set wildignore+=tmp/**            " Ignore stuff that can't be opened
 set splitbelow                    " Open horizontal split below
 set splitright                    " Open vertical split to the right
 set shortmess=at
 set cmdheight=2
+set nojoinspaces
+set complete-=t
+set diffopt=filler,vertical
+
+if has('mouse')
+  set mouse=a
+endif
 
 if has('nvim')
   set inccommand=nosplit
 endif
-
-" Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
 " ========================================================================
 " Ruby stuff
@@ -178,10 +202,6 @@ augroup myfiletypes
 
 augroup END
 
-if !has('nvim')
-  " Enable built-in matchit plugin
-  runtime macros/matchit.vim
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 filetype plugin indent on
@@ -218,12 +238,6 @@ endfunction
 autocmd FileType
   \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss
   \ autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-" Font
-let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
-let g:solarized_base16 = 1
 
 " Use Ripgrep https://github.com/BurntSushi/ripgrep/
 if executable('rg')
