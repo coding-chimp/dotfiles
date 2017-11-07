@@ -71,9 +71,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # added by travis gem
 [ -f /Users/codechimp/.travis/travis.sh ] && source /Users/codechimp/.travis/travis.sh
 
-# zsh-bd
-. $HOME/bin/bd/bd.zsh
-
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
