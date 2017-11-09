@@ -10,7 +10,6 @@ _complep() {
 }
 compctl -K _complep p
 
-
 c() {
   cd "$HOME/code/$1"
 }
