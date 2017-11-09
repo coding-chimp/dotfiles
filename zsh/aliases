@@ -14,11 +14,10 @@ alias lh='ls -Alh'
 alias e='nvim'
 
 # git
-alias gci='git pull --rebase && rake && git push'
 alias gco='git checkout'
 alias gd='git diff -M'
 alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"'
-alias gl='gl --graph'
+alias gl='glog --graph'
 alias gla='gl --all'
 alias gst='git stash save'
 alias gstp='git stash pop'
