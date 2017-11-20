@@ -102,6 +102,7 @@ let mapleader = " "
 nnoremap <leader><leader> <c-^> " Switch between the last two files
 map <Leader>ac :vs app/controllers/application_controller.rb<cr>
 map <Leader>b :!bundle install<cr>
+map <Leader>c :noh<cr>
 map <Leader>fa :vs spec/factories.rb<CR>i
 map <Leader>i mmgg=G`m
 map <Leader>m :Rmodel
