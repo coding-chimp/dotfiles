@@ -56,8 +56,11 @@ command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 " Colors
 " ========================================================================
 
+let g:solarized_termtrans=1
+
 set termguicolors
-silent! colorscheme solarized8_dark
+set background=dark
+colorscheme solarized8
 
 syntax on
 
