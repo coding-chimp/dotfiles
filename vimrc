@@ -117,6 +117,7 @@ map <Leader>vf :Vfunctional<cr>
 map <Leader>vm :Vmodel<cr>
 map <Leader>vu :Vunittest<CR>
 map <Leader>vv :Vview<cr>
+map <Leader>B :call ChangeBackgroundColor()<CR>
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -309,8 +310,18 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-nnoremap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
-  \ ? substitute(g:colors_name, 'dark', 'light', '')
-  \ : substitute(g:colors_name, 'light', 'dark', '')
-  \ )<cr>
-
+function! ChangeBackgroundColor()
+  if &background ==# "dark"
+    let g:solarized_termtrans = 0
+    set background=light
+    colorscheme solarized8
+  else
+    let g:solarized_termtrans = 1
+    set background=dark
+    colorscheme solarized8
+  endif
+  runtime autoload/lightline/colorscheme/solarized.vim
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
