@@ -51,11 +51,6 @@ fi
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 
-# java
-export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH=${PATH}:/Users/codechimp/Library/Android/sdk/tools
-export PATH=${JAVA_HOME}/bin:$PATH
-
 unsetopt autocd
 
 # postgres
