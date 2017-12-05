@@ -53,6 +53,10 @@ eval "$(rbenv init - zsh)"
 
 unsetopt autocd
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 # postgres
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
@@ -63,6 +67,10 @@ export PATH="/usr/local/heroku/bin:$PATH"
 . ~/.zsh/functions
 . ~/.zsh/bundler.plugin.zsh
 
+if which nvm >/dev/null; then
+  . ~/.zsh/load-nvmrc
+fi
+
 # added by travis gem
 [ -f /Users/codechimp/.travis/travis.sh ] && source /Users/codechimp/.travis/travis.sh
 
@@ -70,5 +78,3 @@ export PATH="/usr/local/heroku/bin:$PATH"
 BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
-export NVM_DIR="/Users/codechimp/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
