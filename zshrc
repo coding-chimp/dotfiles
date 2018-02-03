@@ -66,6 +66,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 . ~/.zsh/aliases
 . ~/.zsh/functions
 . ~/.zsh/bundler.plugin.zsh
+. ~/.zsh/zsh-autosuggestions.zsh
 
 if which nvm >/dev/null; then
   . ~/.zsh/load-nvmrc
