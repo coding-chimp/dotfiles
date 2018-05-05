@@ -40,6 +40,7 @@ call minpac#add('vim-ruby/vim-ruby')
 call minpac#add('burnettk/vim-angular')
 call minpac#add('elzr/vim-json')
 call minpac#add('leafgarland/typescript-vim')
+call minpac#add('mustache/vim-mustache-handlebars')
 call minpac#add('othree/javascript-libraries-syntax.vim')
 call minpac#add('pangloss/vim-javascript')
 
@@ -149,6 +150,10 @@ set history=500                   " keep 500 lines of command line history
 set ruler                         " show the cursor position all the time
 set showcmd                       " display incomplete commands
 set autoindent                    " always set autoindenting on
+set tabstop=2                     " number of visual spaces per TAB
+set softtabstop=2                 " number of spaces in tab when editing
+set shiftwidth=2                  " number of spaces to use for autoindent
+set expandtab                     " tabs are space
 set showmatch
 set nowrap
 set backupdir=~/.tmp
@@ -295,6 +300,8 @@ let g:html_indent_tags = 'li\|p'
 let g:syntastic_check_on_open=1
 
 let g:ragtag_global_maps = 1
+
+let g:mustache_abbreviations = 1
 
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
