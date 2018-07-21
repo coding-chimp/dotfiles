@@ -30,6 +30,7 @@ task :install do
   end
 
   system 'mkdir ~/.tmp'
+  system 'mkdir ~/.vim/undodir'
 end
 
 def link_file(file)

@@ -187,6 +187,8 @@ set cmdheight=2
 set nojoinspaces
 set complete-=t
 set diffopt=filler,vertical
+set undodir=~/.vim/undodir
+set undofile
 
 if has('mouse')
   set mouse=a
