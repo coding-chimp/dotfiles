@@ -21,7 +21,6 @@ call minpac#add('kana/vim-textobj-user')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('mileszs/ack.vim')
 call minpac#add('tomtom/tcomment_vim')
-call minpac#add('tpope/vim-vinegar')
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-endwise')
 call minpac#add('tpope/vim-eunuch')
@@ -29,6 +28,7 @@ call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-sleuth')
 call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-vinegar')
 
 " Ruby
 call minpac#add('nelstrom/vim-textobj-rubyblock')
@@ -205,11 +205,11 @@ augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
   " autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,eruby,yaml setlocal ai shiftwidth=2 tabstop=2 et
-  autocmd FileType ruby,eruby,yaml setlocal path+=lib
-  autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
+  autocmd FileType ruby,eruby,yaml,sh,zsh setlocal ai shiftwidth=2 tabstop=2 et
+  autocmd FileType ruby,eruby,yaml,sh,zsh setlocal path+=lib
+  autocmd FileType ruby,eruby,yaml,sh,zsh setlocal colorcolumn=80
   " Make ?s part of words
-  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+  autocmd FileType ruby,eruby,yaml,sh,zsh setlocal iskeyword+=?
   " Appraisal files are ruby too
   autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 
@@ -249,7 +249,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 autocmd FileType
-  \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss
+  \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss,sh,zsh
   \ autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " Use Ripgrep https://github.com/BurntSushi/ripgrep/
@@ -262,7 +262,7 @@ if executable('rg')
   let g:ctrlp_user_command = 'rg %s --files --color=never'
 
   " Use rg in Ack
-  let g:ackprg = 'rg -S --no-heading --vimgrep'
+  let g:ackprg = 'rg -S --vimgrep --no-messages'
 
   " rg is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
