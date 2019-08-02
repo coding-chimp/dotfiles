@@ -189,6 +189,7 @@ set complete-=t
 set diffopt=filler,vertical
 set undodir=~/.vim/undodir
 set undofile
+set tags=./tags
 
 if has('mouse')
   set mouse=a
