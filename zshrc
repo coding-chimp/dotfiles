@@ -5,6 +5,17 @@ export PROMPT=$'
 %{\e[0;%(?.32.31)m%}>%{\e[0m%} '
 export RPROMPT='$fg[white]%} $(rbenv version-name)$(~/.bin/git_cwd_info)%{$reset_color%}'
 
+. ~/.zsh/aliases
+. ~/.zsh/functions
+. ~/.zsh/bundler.plugin.zsh
+. ~/.zsh/zsh-autosuggestions.zsh
+
+# titlebar
+autoload -U add-zsh-hook
+PR_TITLEBAR=''
+set-window-title
+add-zsh-hook precmd set-window-title
+
 # completion
 autoload -Uz compinit
 compinit
@@ -60,11 +71,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # heroku
 export PATH="/usr/local/heroku/bin:$PATH"
-
-. ~/.zsh/aliases
-. ~/.zsh/functions
-. ~/.zsh/bundler.plugin.zsh
-. ~/.zsh/zsh-autosuggestions.zsh
 
 if which nvm >/dev/null; then
   . ~/.zsh/load-nvmrc
