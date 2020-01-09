@@ -104,8 +104,9 @@ let g:lightline = {
 let mapleader = " "
 
 nnoremap <leader><leader> <c-^> " Switch between the last two files
+nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <leader>. :CtrlPTag<cr>
 map <Leader>ac :vs app/controllers/application_controller.rb<cr>
-map <Leader>b :!bundle install<cr>
 map <Leader>c :noh<cr>
 map <Leader>fa :vs spec/factories.rb<CR>i
 map <Leader>i mmgg=G`m
@@ -260,13 +261,16 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 
   " Use rg in CtrlP for listing files
-  let g:ctrlp_user_command = 'rg %s --files --color=never'
+  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never'
 
-  " Use rg in Ack
-  let g:ackprg = 'rg -S --vimgrep --no-messages'
+  " Use CtrlP's Most Recently Used (MRU) search
+  let g:ctrlp_cmd = 'CtrlPMixed'
 
   " rg is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
+  " Use rg in Ack
+  let g:ackprg = 'rg -S --vimgrep --no-messages'
 endif
 
 " Tab completion
