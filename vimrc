@@ -112,7 +112,6 @@ map <Leader>c :noh<cr>
 map <Leader>fa :vs spec/factories.rb<CR>i
 map <Leader>i mmgg=G`m
 map <Leader>m :Rmodel
-map <Leader>r :RunRuby<CR>
 map <Leader>ra :%s/
 map <Leader>sc :sp db/schema.rb<cr>
 map <Leader>vc :Vcontroller<cr>
@@ -291,15 +290,8 @@ inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
-" Run current ruby file
-command! RunRuby execute "Dispatch ruby %"
-
 " vim-test mappings
-if has('nvim')
-  let test#strategy = 'neovim'
-else
-  let test#strategy = 'dispatch'
-endif
+let test#strategy = 'neovim'
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
