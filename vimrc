@@ -14,10 +14,10 @@ call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('airblade/vim-rooter')
 call minpac#add('bogado/file-line')
-call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('danro/rename.vim')
 call minpac#add('itchyny/lightline.vim')
 call minpac#add('janko-m/vim-test')
+call minpac#add('junegunn/fzf.vim')
 call minpac#add('kana/vim-textobj-user')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('mileszs/ack.vim')
@@ -104,23 +104,31 @@ let g:lightline = {
 
 let mapleader = " "
 
+" Search
+nnoremap <C-p> :Files<cr>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <leader>. :Tags<cr>
+nnoremap <leader>ga :Files app/<cr>
+nnoremap <leader>gm :Files app/models/<cr>
+nnoremap <leader>gv :Files app/views/<cr>
+nnoremap <leader>gc :Files app/controllers/<cr>
+nnoremap <leader>gy :Files app/assets/stylesheets/<cr>
+nnoremap <leader>gj :Files app/assets/javascripts/<cr>
+nnoremap <leader>gs :Files spec/<cr>
+nnoremap <leader>gt :Files test/<cr>
+
 nnoremap <leader><leader> <c-^> " Switch between the last two files
-nnoremap <Leader>b :CtrlPBuffer<CR>
-nnoremap <leader>. :CtrlPTag<cr>
-map <Leader>ac :vs app/controllers/application_controller.rb<cr>
-map <Leader>c :noh<cr>
-map <Leader>fa :vs spec/factories.rb<CR>i
-map <Leader>i mmgg=G`m
-map <Leader>m :Rmodel
+map <Leader>c :noh<cr>          " Remove highlighting
+map <Leader>i mmgg=G`m          " Auto-indent the whole file
 map <Leader>ra :%s/
-map <Leader>sc :sp db/schema.rb<cr>
-map <Leader>vc :Vcontroller<cr>
-map <Leader>vf :Vfunctional<cr>
-map <Leader>vm :Vmodel<cr>
-map <Leader>vu :Vunittest<CR>
-map <Leader>vv :Vview<cr>
 map <Leader>B :call ChangeBackgroundColor()<CR>
 
+" Rails navigation
+map <Leader>ac :vs app/controllers/application_controller.rb<cr>
+map <Leader>fa :vs spec/factories.rb<CR>i
+map <Leader>sc :vs db/schema.rb<cr>
+
+" Run tests
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
@@ -254,20 +262,17 @@ autocmd FileType
   \ c,coffee,cpp,css,html,java,javascript,pascal,php,python,ruby,sass,scss,sh,zsh
   \ autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
+" FZF
+set rtp+=/usr/local/opt/fzf
+let g:fzf_files_options =
+  \ '--reverse ' .
+  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
 " Use Ripgrep https://github.com/BurntSushi/ripgrep/
 if executable('rg')
   " Use Rg over Grep
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l:%m
-
-  " Use rg in CtrlP for listing files
-  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never'
-
-  " Use CtrlP's Most Recently Used (MRU) search
-  let g:ctrlp_cmd = 'CtrlPMixed'
-
-  " rg is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
 
   " Use rg in Ack
   let g:ackprg = 'rg -S --vimgrep --no-messages'
