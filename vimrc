@@ -118,8 +118,8 @@ nnoremap <leader>gs :Files spec/<cr>
 nnoremap <leader>gt :Files test/<cr>
 
 nnoremap <leader><leader> <c-^> " Switch between the last two files
-map <Leader>c :noh<cr>          " Remove highlighting
-map <Leader>i mmgg=G`m          " Auto-indent the whole file
+map <Leader>c :noh<CR>
+map <Leader>i mmgg=G`m
 map <Leader>ra :%s/
 map <Leader>B :call ChangeBackgroundColor()<CR>
 
