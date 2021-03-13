@@ -45,8 +45,9 @@ call minpac#add('mustache/vim-mustache-handlebars')
 call minpac#add('othree/javascript-libraries-syntax.vim')
 call minpac#add('pangloss/vim-javascript')
 
-" Elixir
+" Other
 call minpac#add('elixir-lang/vim-elixir')
+call minpac#add('fatih/vim-go')
 
 " Colors
 call minpac#add('lifepillar/vim-solarized8')
@@ -222,6 +223,7 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,sh,zsh setlocal iskeyword+=?
   " Appraisal files are ruby too
   autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 listchars=tab:\ \ 
 
 augroup END
 
