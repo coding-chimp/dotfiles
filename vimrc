@@ -118,6 +118,10 @@ nnoremap <leader>gy :Files app/assets/stylesheets/<cr>
 nnoremap <leader>gj :Files app/assets/javascripts/<cr>
 nnoremap <leader>gs :Files spec/<cr>
 nnoremap <leader>gt :Files test/<cr>
+nnoremap gr :Ack <cword> *<CR>
+nnoremap Gr :Ack <cword> %:p:h/*<CR>
+nnoremap gR :Ack '\b<cword>\b' *<CR>
+nnoremap GR :Ack '\b<cword>\b' %:p:h/*<CR>
 
 nnoremap <leader><leader> <c-^> " Switch between the last two files
 map <Leader>c :noh<CR>
