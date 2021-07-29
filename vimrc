@@ -11,8 +11,10 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " General
 call minpac#add('AndrewRadev/splitjoin.vim')
+call minpac#add('Shougo/deoplete.nvim')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('airblade/vim-rooter')
+call minpac#add('autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': {-> system('bash install.sh') }})
 call minpac#add('bogado/file-line')
 call minpac#add('christoomey/vim-system-copy')
 call minpac#add('danro/rename.vim')
@@ -22,6 +24,7 @@ call minpac#add('junegunn/fzf.vim')
 call minpac#add('kana/vim-textobj-user')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('mileszs/ack.vim')
+call minpac#add('scrooloose/syntastic')
 call minpac#add('tomtom/tcomment_vim')
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-endwise')
@@ -50,6 +53,7 @@ call minpac#add('pangloss/vim-javascript')
 call minpac#add('elixir-lang/vim-elixir')
 call minpac#add('fatih/vim-go')
 call minpac#add('jparise/vim-graphql')
+call minpac#add('rust-lang/rust.vim')
 
 " Colors
 call minpac#add('lifepillar/vim-solarized8')
@@ -206,6 +210,8 @@ set diffopt=filler,vertical
 set undodir=~/.vim/undodir
 set undofile
 set tags=./tags
+set synmaxcol=128                 " Syntax coloring lines that are too long just slows down the world
+set lazyredraw
 
 if has('mouse')
   set mouse=a
@@ -274,7 +280,7 @@ autocmd FileType
 set rtp+=/usr/local/opt/fzf
 let g:fzf_files_options =
   \ '--reverse ' .
-  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
 " Use Ripgrep https://github.com/BurntSushi/ripgrep/
 if executable('rg')
@@ -309,12 +315,33 @@ let test#strategy = 'neovim'
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-
 let g:ragtag_global_maps = 1
 
 let g:mustache_abbreviations = 1
+
+" Syntastic mappings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_ruby_rubocop_exe = 'rubocop'
+
+" Don't bother me with rubocop if there is no config in the project
+autocmd FileType ruby let g:syntastic_ruby_checkers = findfile('.rubocop.yml', '.;') != '' ? ['mri', 'rubocop'] : ['mri']
+
+let g:LanguageClient_serverCommands = {
+  \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio']
+  \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+
+let g:deoplete#enable_at_startup = 1
 
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"

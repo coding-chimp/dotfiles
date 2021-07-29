@@ -62,6 +62,16 @@ fi
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 
+# rubocop-daemon wrapper
+export PATH="/usr/local/bin/rubocop-daemon-wrapper:$PATH"
+
+# crenv
+export PATH="$HOME/.crenv/bin:$PATH"
+eval "$(crenv init - zsh)"
+
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 unsetopt autocd
 
 # nvm
@@ -83,3 +93,8 @@ fi
 BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+# For Percona
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
