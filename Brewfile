@@ -1,5 +1,3 @@
-brew "bat"
-brew "forego"
 brew "fzf"
 brew "graphicsmagick"
 brew "heroku"

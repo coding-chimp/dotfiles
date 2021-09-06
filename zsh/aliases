@@ -15,6 +15,7 @@ alias e='nvim'
 
 # git
 alias gir=git
+alias gcm='git checkout $(git_main_branch)'
 alias gco='git checkout'
 alias gd='git diff -M'
 alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"'

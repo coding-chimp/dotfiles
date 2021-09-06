@@ -1,0 +1,7 @@
+function current_ruby() {
+  if which rbenv >/dev/null; then
+    echo $(rbenv version-name)
+  elif which chruby >/dev/null; then
+    echo $(chruby |grep \* |tr -d '* ')
+  fi
+}

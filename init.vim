@@ -1,4 +1,4 @@
-" Symlink to ~/.config/nvim/init.vm
+" Symlink to ~/.config/nvim/init.vim
 set runtimepath+=~/.vim,~/.vim/after
 set packpath+=~/.vim
 source ~/.vimrc

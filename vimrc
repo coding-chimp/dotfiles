@@ -47,7 +47,6 @@ call minpac#add('othree/javascript-libraries-syntax.vim')
 call minpac#add('pangloss/vim-javascript')
 
 " Other
-call minpac#add('elixir-lang/vim-elixir')
 call minpac#add('fatih/vim-go')
 call minpac#add('jparise/vim-graphql')
 
