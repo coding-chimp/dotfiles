@@ -51,7 +51,7 @@ export EDITOR=$VISUAL
 
 if [ $(uname -s) = 'Darwin' ]; then
   export LANG="en_AU.UTF-8"
-  export PATH="$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin"
+  export PATH="$HOME/.bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin"
   export MANPATH="/usr/local/share/man:/usr/X11/man:/usr/share/man"
   export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 else

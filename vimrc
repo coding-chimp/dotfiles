@@ -272,6 +272,7 @@ autocmd FileType
 
 " FZF
 set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/opt/fzf
 let g:fzf_files_options =
   \ '--reverse ' .
   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
